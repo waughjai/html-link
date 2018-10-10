@@ -1,4 +1,4 @@
-Test Hash Item
+HTML Link
 =========================
 
-A collection o' helper functions for testing properties o' a hash item
+Simple class for encapsulating link info and autogenerating the HTML for it.
