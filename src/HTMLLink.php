@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace WaughJ\HTMLLink
 {
 	use WaughJ\HTMLAttributeList\HTMLAttributeList;
+	use function \WaughJ\TestHashItem\TestHashItemBool;
 
 	class HTMLLink
 	{
@@ -11,7 +12,7 @@ namespace WaughJ\HTMLLink
 		{
 			$this->href = $href;
 			$this->title = $title;
-			$this->external = \WaughJ\TestHashItem\TestHashItemBool( $other_attributes, 'external', false );
+			$this->external = TestHashItemBool( $other_attributes, 'external', false );
 			$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
 		}
 
