@@ -8,80 +8,92 @@ namespace WaughJ\HTMLLink
 
 	class HTMLLink
 	{
-		public function __construct( string $href, $text, array $other_attributes = [] )
-		{
-			$this->href = $href;
-			$this->text = $text;
-			$this->external = TestHashItemBool( $other_attributes, 'external', false );
-			$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
-		}
+		//
+		//  PUBLIC
+		//
+		/////////////////////////////////////////////////////////
 
-		public function __toString()
-		{
-			return $this->getHTML();
-		}
-
-		public function getURL() : string
-		{
-			return $this->href;
-		}
-
-		public function getText() : string
-		{
-			return $this->text;
-		}
-
-		public function getHTML() : string
-		{
-			return "<a href=\"{$this->href}\"{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->text}</a>";
-		}
-
-		public function isExternal() : bool
-		{
-			return $this->external;
-		}
-
-		public function getAttributeValue( string $attribute_key ) : ?string
-		{
-			return $this->other_attributes->getAttributeValue( $attribute_key );
-		}
-
-		private function getExternalAttributesTextIfExternal() : string
-		{
-			return ( $this->external ) ? $this->getExternalAttributesText() : '';
-		}
-
-		private function getExternalAttributesText() : string
-		{
-			$text = '';
-			if ( !$this->other_attributes->hasAttribute( 'target' ) )
+			public function __construct( string $href, $text, array $other_attributes = [] )
 			{
-				$text .= ' target="_blank"';
+				$this->href = $href;
+				$this->text = $text;
+				$this->external = TestHashItemBool( $other_attributes, 'external', false );
+				$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
 			}
-			if ( !$this->other_attributes->hasAttribute( 'rel' ) )
+
+			public function __toString()
 			{
-				$text .= ' rel="noopener noreferrer"';
+				return $this->getHTML();
 			}
-			return $text;
+
+			public function getURL() : string
+			{
+				return $this->href;
+			}
+
+			public function getText() : string
+			{
+				return $this->text;
+			}
+
+			public function getHTML() : string
+			{
+				return "<a href=\"{$this->href}\"{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->text}</a>";
+			}
+
+			public function isExternal() : bool
+			{
+				return $this->external;
+			}
+
+			public function getAttributeValue( string $attribute_key ) : ?string
+			{
+				return $this->other_attributes->getAttributeValue( $attribute_key );
+			}
+
+
+
+		//
+		//  PRIVATE
+		//
+		/////////////////////////////////////////////////////////
+
+			private function getExternalAttributesTextIfExternal() : string
+			{
+				return ( $this->external ) ? $this->getExternalAttributesText() : '';
+			}
+
+			private function getExternalAttributesText() : string
+			{
+				$text = '';
+				if ( !$this->other_attributes->hasAttribute( 'target' ) )
+				{
+					$text .= ' target="_blank"';
+				}
+				if ( !$this->other_attributes->hasAttribute( 'rel' ) )
+				{
+					$text .= ' rel="noopener noreferrer"';
+				}
+				return $text;
+			}
+
+			private $href;
+			private $text;
+			private $external;
+			private $other_attributes;
+
+			private const VALID_ATTRIBUTES =
+			[
+				'class',
+				'id',
+				'title',
+				'download',
+				'hreflang',
+				'ping',
+				'referrerpolicy',
+				'rel',
+				'target',
+				'type'
+			];
 		}
-
-		private $href;
-		private $text;
-		private $external;
-		private $other_attributes;
-
-		private const VALID_ATTRIBUTES =
-		[
-			'class',
-			'id',
-			'title',
-			'download',
-			'hreflang',
-			'ping',
-			'referrerpolicy',
-			'rel',
-			'target',
-			'type'
-		];
-	}
 }
