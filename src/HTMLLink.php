@@ -46,7 +46,7 @@ namespace WaughJ\HTMLLink
 				return $this->external;
 			}
 
-			public function getAttributeValue( string $attribute_key ) : ?string
+			public function getAttributeValue( string $attribute_key )
 			{
 				return $this->other_attributes->getAttributeValue( $attribute_key );
 			}
@@ -72,6 +72,8 @@ namespace WaughJ\HTMLLink
 				}
 				if ( !$this->other_attributes->hasAttribute( 'rel' ) )
 				{
+					// Add this to prevent tabnapping.
+					// See https://www.jitbit.com/alexblog/256-targetblank---the-most-underestimated-vulnerability-ever/
 					$text .= ' rel="noopener noreferrer"';
 				}
 				return $text;
@@ -82,7 +84,7 @@ namespace WaughJ\HTMLLink
 			private $external;
 			private $other_attributes;
 
-			private const VALID_ATTRIBUTES =
+			const VALID_ATTRIBUTES =
 			[
 				'class',
 				'id',
