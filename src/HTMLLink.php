@@ -8,10 +8,10 @@ namespace WaughJ\HTMLLink
 
 	class HTMLLink
 	{
-		public function __construct( string $href, $title, array $other_attributes = [] )
+		public function __construct( string $href, $text, array $other_attributes = [] )
 		{
 			$this->href = $href;
-			$this->title = $title;
+			$this->text = $text;
 			$this->external = TestHashItemBool( $other_attributes, 'external', false );
 			$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
 		}
@@ -26,14 +26,14 @@ namespace WaughJ\HTMLLink
 			return $this->href;
 		}
 
-		public function getTitle() : string
+		public function getText() : string
 		{
-			return $this->title;
+			return $this->text;
 		}
 
 		public function getHTML() : string
 		{
-			return "<a href=\"{$this->href}\"{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->title}</a>";
+			return "<a href=\"{$this->href}\"{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->text}</a>";
 		}
 
 		public function isExternal() : bool
@@ -66,7 +66,7 @@ namespace WaughJ\HTMLLink
 		}
 
 		private $href;
-		private $title;
+		private $text;
 		private $external;
 		private $other_attributes;
 
