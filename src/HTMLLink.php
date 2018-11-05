@@ -18,7 +18,7 @@ namespace WaughJ\HTMLLink
 			{
 				$this->href = TestHashItemString( $other_attributes, 'href', $href );
 				$this->value = $value;
-				$this->external = TestHashItemBool( $other_attributes, 'external', false );
+				$this->external = isset( $other_attributes[ 'external' ] ) && ( $other_attributes[ 'external' ] === true || $other_attributes[ 'external' ] === 'true' );
 				$this->anchor = ( isset( $other_attributes[ 'anchor' ] ) ) ? $other_attributes[ 'anchor' ] : null;
 				$other_attributes[ 'href' ] = $this->href . self::getParametersText( $url_parameters ) . self::getAnchorText( $this->anchor );
 				$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
