@@ -14,7 +14,7 @@ class HTMLLinkTest extends TestCase
 	public function testLinkText() : void
 	{
 		$link = $this->getDemoLink();
-		$this->assertEquals( $link->getText(), self::DEMO_TEXT );
+		$this->assertEquals( $link->getValue(), self::DEMO_TEXT );
 	}
 
 	public function testLinkHTML() : void
