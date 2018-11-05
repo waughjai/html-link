@@ -68,6 +68,12 @@ class HTMLLinkTest extends TestCase
 		$this->assertEquals( $link->getAttributeValue( 'food' ), null );
 	}
 
+	public function testAnchorLink() : void
+	{
+		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [ 'anchor' => 'top' ] );
+		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '#top">' . self::DEMO_TEXT . '</a>' );
+	}
+
 	private function getDemoLink() : HTMLLink
 	{
 		return new HTMLLink( self::DEMO_URL, self::DEMO_TEXT );

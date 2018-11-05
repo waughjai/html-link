@@ -18,6 +18,7 @@ namespace WaughJ\HTMLLink
 				$this->href = $href;
 				$this->text = $text;
 				$this->external = TestHashItemBool( $other_attributes, 'external', false );
+				$this->anchor = ( isset( $other_attributes[ 'anchor' ] ) ) ? $other_attributes[ 'anchor' ] : null;
 				$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
 			}
 
@@ -28,7 +29,7 @@ namespace WaughJ\HTMLLink
 
 			public function getURL() : string
 			{
-				return $this->href;
+				return $this->href . $this->getAnchorText();
 			}
 
 			public function getText() : string
@@ -38,7 +39,12 @@ namespace WaughJ\HTMLLink
 
 			public function getHTML() : string
 			{
-				return "<a href=\"{$this->href}\"{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->text}</a>";
+				return "<a href=\"{$this->getURL()}\"{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->text}</a>";
+			}
+
+			public function getAnchorText() : string
+			{
+				return ( $this->anchor ) ? "#{$this->anchor}" : '';
 			}
 
 			public function isExternal() : bool
@@ -82,6 +88,7 @@ namespace WaughJ\HTMLLink
 			private $href;
 			private $text;
 			private $external;
+			private $anchor;
 			private $other_attributes;
 
 			const VALID_ATTRIBUTES =
