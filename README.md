@@ -2,3 +2,7 @@ HTML Link
 =========================
 
 Simple class for encapsulating link info and autogenerating the HTML for it.
+
+The 1st 2 mandatory arguments to pass into the constructor are the URL & the HTML content that will represent the link on the page ( the part that goes 'tween the opening & closing a tags ).
+
+3rd is an optional hash map o' attributes. In addition to all the valid HTML5 attributes an a tag can have, which will automatically be added if given, adding an external attribute & setting it to true will automatically generate the HTML to securely make it open in a new tab, & adding an anchor attribute will automatically add an anchor/bookmark link to the URL ( the part after the # in a URL ).
