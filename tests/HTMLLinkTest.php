@@ -9,6 +9,7 @@ class HTMLLinkTest extends TestCase
 	{
 		$link = $this->getDemoLink();
 		$this->assertEquals( $link->getURL(), self::DEMO_URL );
+		$this->assertEquals( $link->getAttributeValue( 'href' ), self::DEMO_URL );
 	}
 
 	public function testLinkText() : void
@@ -46,19 +47,24 @@ class HTMLLinkTest extends TestCase
 	public function testExternalLinkOverrideHTML() : void
 	{
 		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [ 'external' => true, 'target' => '_new' ] );
-		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '" target="_new" rel="noopener noreferrer">' . self::DEMO_TEXT . '</a>' );
+		$this->assertContains( ' href="' . self::DEMO_URL . '"', $link->getHTML() );
+		$this->assertContains( ' target="_new"', $link->getHTML() );
+		$this->assertContains( ' rel="noopener noreferrer"', $link->getHTML() );
 	}
 
 	public function testLinkWithExtraAttributes() : void
 	{
 		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [ 'class' => 'link', 'id' => 'link', 'title' => 'Google' ] );
-		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '" class="link" id="link" title="Google">' . self::DEMO_TEXT . '</a>' );
+		$this->assertContains( ' href="' . self::DEMO_URL . '"', $link->getHTML() );
+		$this->assertContains( ' class="link"', $link->getHTML() );
+		$this->assertContains( ' id="link"', $link->getHTML() );
+		$this->assertContains( ' title="Google"', $link->getHTML() );
 	}
 
 	public function testInvalidAttributes() : void
 	{
 		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [ 'class' => 'link', 'id' => 'link', 'weapon' => 'club', 'animal' => 'cat' ] );
-		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '" class="link" id="link">' . self::DEMO_TEXT . '</a>' );
+		$this->assertThat( $link->getHTML(), $this->logicalNot( $this->stringContains( 'safsdf' ) ) );
 	}
 
 	public function testGetAttribute() : void
