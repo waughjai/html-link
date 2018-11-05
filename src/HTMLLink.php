@@ -13,13 +13,14 @@ namespace WaughJ\HTMLLink
 		//
 		/////////////////////////////////////////////////////////
 
-			public function __construct( string $href, $text, array $other_attributes = [] )
+			public function __construct( string $href, $text, array $other_attributes = [], array $url_parameters = [] )
 			{
 				$this->href = $href;
 				$this->text = $text;
 				$this->external = TestHashItemBool( $other_attributes, 'external', false );
 				$this->anchor = ( isset( $other_attributes[ 'anchor' ] ) ) ? $other_attributes[ 'anchor' ] : null;
 				$this->other_attributes = new HTMLAttributeList( $other_attributes, self::VALID_ATTRIBUTES );
+				$this->url_parameters = $url_parameters;
 			}
 
 			public function __toString()
@@ -29,7 +30,7 @@ namespace WaughJ\HTMLLink
 
 			public function getURL() : string
 			{
-				return $this->href . $this->getAnchorText();
+				return $this->href . $this->getParametersText() . $this->getAnchorText();
 			}
 
 			public function getText() : string
@@ -64,6 +65,25 @@ namespace WaughJ\HTMLLink
 		//
 		/////////////////////////////////////////////////////////
 
+			private function getParametersText() : string
+			{
+				return ( empty( $this->url_parameters ) ) ? '' : '?' . $this->implodeParameters();
+			}
+
+			private function implodeParameters() : string
+			{
+				$text = '';
+				foreach ( $this->url_parameters as $key => $value )
+				{
+					if ( $text !== '' )
+					{
+						$text .= '&';
+					}
+					$text .= "{$key}={$value}";
+				}
+				return $text;
+			}
+
 			private function getExternalAttributesTextIfExternal() : string
 			{
 				return ( $this->external ) ? $this->getExternalAttributesText() : '';
@@ -90,6 +110,7 @@ namespace WaughJ\HTMLLink
 			private $external;
 			private $anchor;
 			private $other_attributes;
+			private $url_parameters;
 
 			const VALID_ATTRIBUTES =
 			[

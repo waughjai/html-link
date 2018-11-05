@@ -74,6 +74,16 @@ class HTMLLinkTest extends TestCase
 		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '#top">' . self::DEMO_TEXT . '</a>' );
 	}
 
+	public function testLinkWithParameters() : void
+	{
+		$ID = rand( 1, 99 );
+		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [], [ 'id' => $ID ] );
+		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '?id=' . $ID . '">' . self::DEMO_TEXT . '</a>' );
+		$ID = rand( 1, 99 );
+		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [], [ 'id' => $ID, 'name' => 'aghasdfkjg' ] );
+		$this->assertEquals( $link->getHTML(), '<a href="' . self::DEMO_URL . '?id=' . $ID . '&name=aghasdfkjg">' . self::DEMO_TEXT . '</a>' );
+	}
+
 	private function getDemoLink() : HTMLLink
 	{
 		return new HTMLLink( self::DEMO_URL, self::DEMO_TEXT );
