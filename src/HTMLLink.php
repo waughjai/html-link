@@ -42,7 +42,7 @@ namespace WaughJ\HTMLLink
 
 			public function getHTML() : string
 			{
-				return "<a{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>{$this->value}</a>";
+				return "<a{$this->other_attributes->getAttributesText()}{$this->getExternalAttributesTextIfExternal()}>" . ( string )( $this->value ) . "</a>";
 			}
 
 			public function isExternal() : bool
