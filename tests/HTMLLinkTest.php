@@ -95,6 +95,6 @@ class HTMLLinkTest extends TestCase
 		return new HTMLLink( self::DEMO_URL, self::DEMO_TEXT );
 	}
 
-	private DEMO_TEXT = 'Google';
-	private DEMO_URL   = 'https://www.google.com';
+	const DEMO_TEXT = 'Google';
+	const DEMO_URL   = 'https://www.google.com';
 }
