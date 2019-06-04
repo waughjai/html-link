@@ -47,18 +47,18 @@ class HTMLLinkTest extends TestCase
 	public function testExternalLinkOverrideHTML() : void
 	{
 		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [ 'external' => true, 'target' => '_new' ] );
-		$this->assertContains( ' href="' . self::DEMO_URL . '"', $link->getHTML() );
-		$this->assertContains( ' target="_new"', $link->getHTML() );
-		$this->assertContains( ' rel="noopener noreferrer"', $link->getHTML() );
+		$this->assertStringContainsString( ' href="' . self::DEMO_URL . '"', $link->getHTML() );
+		$this->assertStringContainsString( ' target="_new"', $link->getHTML() );
+		$this->assertStringContainsString( ' rel="noopener noreferrer"', $link->getHTML() );
 	}
 
 	public function testLinkWithExtraAttributes() : void
 	{
 		$link = new HTMLLink( self::DEMO_URL, self::DEMO_TEXT, [ 'class' => 'link', 'id' => 'link', 'title' => 'Google' ] );
-		$this->assertContains( ' href="' . self::DEMO_URL . '"', $link->getHTML() );
-		$this->assertContains( ' class="link"', $link->getHTML() );
-		$this->assertContains( ' id="link"', $link->getHTML() );
-		$this->assertContains( ' title="Google"', $link->getHTML() );
+		$this->assertStringContainsString( ' href="' . self::DEMO_URL . '"', $link->getHTML() );
+		$this->assertStringContainsString( ' class="link"', $link->getHTML() );
+		$this->assertStringContainsString( ' id="link"', $link->getHTML() );
+		$this->assertStringContainsString( ' title="Google"', $link->getHTML() );
 	}
 
 	public function testInvalidAttributes() : void
